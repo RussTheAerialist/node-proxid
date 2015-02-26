@@ -1,0 +1,34 @@
+{
+  "name": "proxid",
+  "version": "0.0.1",
+  "description": "stream-based reading of proximity card ids",
+  "main": "lib/proxid.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RussTheAerialist/node-proxid"
+  },
+  "keywords": [
+    "hardware",
+    "proximit",
+    "card",
+    "rfid"
+  ],
+  "author": "Russell Hay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RussTheAerialist/node-proxid/issues"
+  },
+  "homepage": "https://github.com/RussTheAerialist/node-proxid",
+  "dependencies": {
+    "serialport": "latest"
+  },
+  "devDependencies": {
+    "jasmine": "^2.2.1",
+    "jshint": "^2.6.0",
+    "precommit-hook": "^1.0.7"
+  }
+}
