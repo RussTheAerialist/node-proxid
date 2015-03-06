@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/RussTheAerialist/node-proxid",
   "dependencies": {
+    "lodash": "^3.3.1",
     "serialport": "latest"
   },
   "devDependencies": {

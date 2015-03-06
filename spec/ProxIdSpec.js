@@ -3,19 +3,29 @@ var FakeSource = require('./helpers/fake-source')
 var NopSource = require('../lib/nopsource')
 
 describe('A ProxIdStream constructor', function() {
-    xit('takes options hash', function() {
+    it('takes options hash', function() {
+        var out = new ProxIdStream({
+            source: 'nopsource'
+        })
+        expect(out).toEqual(jasmine.any(ProxIdStream))
     })
 
     it('takes "source" to specify what type of proximity card is use',
         function() {
-        var out = new ProxIdStream({
-            source: 'nopsource'
-        })
+            var out = new ProxIdStream({
+                source: 'nopsource'
+            })
         expect(out.source).toEqual(jasmine.any(NopSource))
     })
 
-    xit('passes options through to the card-specific implementation',
+    it('passes options through to the card-specific implementation',
         function() {
+            var out = new ProxIdStream({
+                source: 'nopsource',
+                test: 'foo'
+            })
+
+            expect(out.source.options.test).toEqual('foo')
     })
 })
 
@@ -45,14 +55,29 @@ describe('A ProxIdStream', function() {
         expect(fakeSource.listeners('data').length).toEqual(1)
     })
 
-    xit('sends an object when it receives a data packet', function() {
+    it('sends an object when it receives a data packet', function() {
+        var fakeSource = new FakeSource()
+        var out = new ProxIdStream({
+            source: fakeSource
+        })
+
+        fakeSource.emit('data', '1234')
+        var actual = out.read()
+        expect(actual.data).toEqual('1234')
     })
 
-    xit('sends a card presented event when it receives a data packet',
-       function() {
-    })
+    it('sends a card presented event when it receives a data packet',
+       function(done) {
+        var fakeSource = new FakeSource()
+        var out = new ProxIdStream({
+            source: fakeSource
+        })
 
-    xit('sends an error event when it cannot parse the data packet',
-      function() {
+        out.on('card-present', function(data) {
+            expect(data.data).toEqual('1234')
+            done()
+        })
+
+        fakeSource.emit('data', '1234')
     })
 })

@@ -1,8 +1,9 @@
 var util = require('util')
 var EventEmitter = require('events').EventEmitter
 
-function FakeSource() {
+function FakeSource(opt) {
     EventEmitter.call(this)
+    this.options = opt || {}
 }
 
 util.inherits(FakeSource, EventEmitter)
